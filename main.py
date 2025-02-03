@@ -1,76 +1,80 @@
-import time
+# Remove function repeats
+def getnum(promp):
+    while True:
+        try:
+            return int(input(promp))
+        except ValueError:
+            print("Please enter a vaild number \n")
+# Display Results
+def disres(res):
+    print(f"Your Results are: {res}")
+
+# Redo 
+def redo():
+    response = input("Continue? (y/n): ").lower()
+    return response in {"y", "yes"}
 
 #Addition 
 def add():
-    a = int(input("Whats your first number? \n"))
-    b = int(input("What your second number? \n"))
-    res = a + b
-    print(f"Your results are: {res}")
-    time.sleep(3)
-    again = input("would you like to go again?").lower()
-    if again == "y" or again == "yes":
-        calc()
-    else: 
-        print("Have a great day...")  
+    a = getnum("Whats your first number? \n ")
+    b = getnum("Whats your second number? \n ")
+
+    return a + b
 
 #Subtraction
 def subtract():
-    a = int(input("Whats your first number? \n"))
-    b = int(input("What your second number? \n"))
-    res = a - b
-    print(f"Your results are: {res}")
-    time.sleep(3)
-    again = input("would you like to go again?").lower()
-    if again == "y" or again == "yes":
-        calc()
-    else: 
-        print("Have a great day...")  
+    a = getnum("Whats your first number? \n ")
+    b = getnum("Whats your second number? \n ")
+
+    return a - b
 
 #Multiplication
 def multiply():
-    a = int(input("Whats your first number? \n"))
-    b = int(input("What your second number? \n"))
-    res = a * b
-    print(f"Your results are: {res}")
-    time.sleep(3)
-    again = input("would you like to go again?").lower()
-    if again == "y" or again == "yes":
-        calc()
-    else: 
-        print("Have a great day...")  
+    a = getnum("Whats your first number? \n ")
+    b = getnum("Whats your second number? \n ")
+
+    return a * b
 
 #Division
 def divide():
-    a = int(input("Whats your first number? \n"))
-    b = int(input("What your second number? \n"))
+    a = getnum("Whats your first number? \n ")
+    while True:
+        b = getnum("Whats your second number? \n ")
+        try:
+            return a / b
+        except ZeroDivisionError:
+            print("It cannot be divided")
+
+
     
-    # Avoid 0/0
-    try:
-        res = a / b
-    except ZeroDivisionError:
-        return print("This number is undefined")
-
-    print(f"Your results are: {res}")
-    time.sleep(3)
-    again = input("would you like to go again?").lower()
-    if again == "y" or again == "yes":
-        calc()
-    else: 
-        print("Have a great day...")  
-
+    
 # Logic for user input
 def calc():
-    uinput = input("Please choose the choices \n a. Addition \n b. Subtraction \n c. Multiplication \n d. Division \n" ).lower()
-    if uinput == "a":
-        add()
-    elif uinput =="b":
-        subtract()
-    elif uinput =="c":
-        multiply()
-    elif uinput =="d":
-        divide()
-    else:
-        print("Please enter either a, b, c or d \n ")
-        calc()
+    while True:
+        uinput = input("Please choose the choices \n a. Addition \n b. Subtraction \n c. Multiplication \n d. Division \n" ).lower()
+        if uinput == "a":
+            res = add()
+        elif uinput =="b":
+            res = subtract()
+        elif uinput =="c":
+            res = multiply()
+        elif uinput =="d":
+            res = divide()
+        else:
+            print("Please enter either a, b, c or d \n ")
+            continue
+    
+        disres(res)
+        return
+    
+# Program loop
 
-calc()
+def main():
+    while True:
+        calc()
+        if not redo():
+            print("bye")
+            break
+
+if __name__ == "__main__":
+    main()
